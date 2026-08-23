@@ -1,9 +1,9 @@
-import UploadFileToServer from "./pages/UploadFileToServer";
+import Login from "./pages/Login.tsx"
 
 function App() {
   return (
     <>
-      <UploadFileToServer />
+      <Login />
     </>
   );
 }
