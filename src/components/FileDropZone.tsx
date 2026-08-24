@@ -49,7 +49,7 @@ export default function FileDropZone({ files, setFiles }: FileDropZoneProps) {
             {({ getRootProps, getInputProps, isDragActive }) => (
                 <div
                     {...getRootProps()}
-                    className={`rounded-2xl border-2 border-dashed p-6 transition ${isDragActive
+                    className={`rounded-2xl border-2 border-dashed p-4 transition sm:p-6 ${isDragActive
                             ? "border-blue-500 bg-blue-50"
                             : "border-gray-300 hover:border-blue-400"
                         }`}
@@ -57,7 +57,7 @@ export default function FileDropZone({ files, setFiles }: FileDropZoneProps) {
                     <input {...getInputProps()} />
 
                     {files.length === 0 ? (
-                        <div className="flex h-64 flex-col items-center justify-center text-center">
+                        <div className="flex h-52 flex-col items-center justify-center text-center sm:h-64">
                             <UploadCloud size={48} className="mb-4 text-gray-400" />
 
                             <h2 className="text-xl font-semibold">Drag & Drop Files</h2>
@@ -68,7 +68,7 @@ export default function FileDropZone({ files, setFiles }: FileDropZoneProps) {
                         </div>
                     ) : (
                         <>
-                            <div className="mb-4 flex items-center justify-between">
+                            <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                                 <div>
                                     <h2 className="font-semibold text-lg">Selected Files</h2>
 
@@ -86,7 +86,7 @@ export default function FileDropZone({ files, setFiles }: FileDropZoneProps) {
                                 {files.map((file, index) => (
                                     <div
                                         key={`${file.name}-${index}`}
-                                        className="flex items-center justify-between rounded-xl border bg-white p-3 shadow-sm"
+                                        className="flex items-center justify-between gap-2 rounded-xl border bg-white p-3 shadow-sm"
                                     >
                                         <div className="flex items-center gap-3 overflow-hidden">
                                             <div className="rounded-lg bg-gray-100 p-2">
@@ -94,7 +94,7 @@ export default function FileDropZone({ files, setFiles }: FileDropZoneProps) {
                                             </div>
 
                                             <div className="min-w-0">
-                                                <p className="truncate font-medium">{file.name}</p>
+                                                <p className="break-all font-medium sm:truncate">{file.name}</p>
 
                                                 <p className="text-sm text-gray-500">
                                                     {formatSize(file.size)}

@@ -118,13 +118,16 @@
 }
 
 @layer base {
+  html {
+    min-width: 320px;
+    @apply font-mono;
+  }
+
   * {
     @apply border-border outline-ring/50;
-    }
+  }
+
   body {
-    @apply bg-background text-foreground;
-    }
-  html {
-    @apply font-mono;
-    }
+    @apply min-w-80 bg-background text-foreground;
+  }
 }

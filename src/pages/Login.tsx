@@ -8,6 +8,7 @@ import { z } from "zod";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
+import { api } from "../lib/api";
 
 const loginSchema = z.object({
   username: z
@@ -23,7 +24,11 @@ const loginSchema = z.object({
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
-function Login() {
+interface LoginProps {
+  onLogin: (token: string) => void;
+}
+
+function Login({ onLogin }: LoginProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -37,20 +42,12 @@ function Login() {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      const response = await axios.post(
-        // "https://cloudify.kaushal.dev/api/auth/login",
-        "http://localhost:3001/auth/login",
-        {
+      const response = await api.post("/auth/login", {
           username: data.username,
           password: data.password,
-        },
-      );
+      });
 
-      console.log(response.data);
-
-      // TODO:
-      // Store authentication token/session
-      // Navigate to the Cloudify dashboard
+      onLogin(response.data.token);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         alert(
@@ -74,7 +71,7 @@ function Login() {
         <div className="absolute left-[-150px] top-1/2 h-[300px] w-[300px] -translate-y-1/2 rounded-full bg-primary/5 blur-3xl" />
       </div>
 
-      <div className="relative flex min-h-dvh items-center justify-center px-4 py-10">
+      <div className="relative flex min-h-dvh items-center justify-center px-3 py-6 sm:px-4 sm:py-10">
         <div className="w-full max-w-md">
           {/* Brand */}
           <div className="mb-8 text-center">
@@ -92,7 +89,7 @@ function Login() {
           </div>
 
           {/* Login Card */}
-          <div className="rounded-3xl border bg-card/80 p-6 shadow-xl shadow-black/5 backdrop-blur-sm sm:p-8">
+          <div className="rounded-2xl border bg-card/80 p-5 shadow-xl shadow-black/5 backdrop-blur-sm sm:rounded-3xl sm:p-8">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               {/* Username */}
               <div className="space-y-2">
