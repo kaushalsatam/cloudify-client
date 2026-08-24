@@ -21,7 +21,7 @@ jobs:
 
       - name: Build and push image
         run: |
-          docker build -t kaushalsatam/cloudify-client:latest .
+          docker build --build-arg VITE_API_URL=https://cloudify.kaushal.dev/api -t kaushalsatam/cloudify-client:latest .
           docker push kaushalsatam/cloudify-client:latest
 
       - name: Deploy to VPS
